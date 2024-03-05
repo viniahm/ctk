@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Button, Card, Modal } from 'antd';
 import dinoImage from './dino.png';
 
+function App() {
+  const [series, setSeries] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
-useEffect(() => {
+  // Carregar dados salvos do localStorage quando o componente é montado
+  useEffect(() => {
     const savedSeries = localStorage.getItem('series');
     if (savedSeries) {
       setSeries(JSON.parse(savedSeries));
     }
   }, []);
 
-
-function App() {
-  const [series, setSeries] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  // Salvar dados no localStorage sempre que a variável 'series' for atualizada
+  useEffect(() => {
+    localStorage.setItem('series', JSON.stringify(series));
+  }, [series]);
 
   const handleOpenModal = () => {
     setModalVisible(true);
@@ -27,7 +31,7 @@ function App() {
     setSeries([...series, {
       id: series.length,
       name: nome,
-      episodios: parseInt(episodios) || 0 // garantindo que episodios seja um número
+      episodios: parseInt(episodios) || 0
     }]);
   };
 
