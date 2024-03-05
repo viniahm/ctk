@@ -1,0 +1,61 @@
+body {
+  background-color: #021223;
+  font-family: 'Arial', sans-serif;
+  justify-content: center;
+}
+
+#inputs {
+  width: 50%;
+  margin: 0 auto; /* Adicionando margens automáticas para centralizar */
+  display: flex; /* Adicionando display flex para centralizar */
+  flex-direction: column; /* Organizando os elementos em coluna */
+  align-items: center; /* Centralizando os elementos horizontalmente */
+}
+
+#inputs input {
+  margin-top: 10px;
+}
+
+#nodal{
+  text-align: center;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.App-Card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: 80%;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#botao {
+  margin-top: 10px;
+  width: 50%; /* Definindo a largura do botão para corresponder à dos inputs */
+}
+
+
+#addbutton{
+  position: fixed; /* Alterando para position fixed */
+  bottom: 20px;
+  right: 20px;
+}
+
+
+
+#botao button {
+  display: inline-block; /* Garantindo que o botão se comporte como um bloco dentro do contêiner */
+}
+
+.button:hover {
+  background-color: #005999;
+}
+
