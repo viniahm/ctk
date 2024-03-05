@@ -6,18 +6,16 @@ function App() {
   const [series, setSeries] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Carregar dados salvos do localStorage quando o componente é montado
   useEffect(() => {
     const savedSeries = localStorage.getItem('series');
     if (savedSeries) {
       setSeries(JSON.parse(savedSeries));
     }
-  }, []);
+  }, []); // Este efeito só é executado uma vez, quando o componente é montado
 
-  // Salvar dados no localStorage sempre que a variável 'series' for atualizada
   useEffect(() => {
     localStorage.setItem('series', JSON.stringify(series));
-  }, [series]);
+  }, [series]); // Este efeito é executado sempre que 'series' mudar
 
   const handleOpenModal = () => {
     setModalVisible(true);
@@ -28,29 +26,41 @@ function App() {
   };
 
   const adicionarSerie = (nome, episodios) => {
-    setSeries([...series, {
-      id: series.length,
-      name: nome,
-      episodios: parseInt(episodios) || 0
-    }]);
+    setSeries(prevSeries => {
+      const newSeries = [...prevSeries, {
+        id: prevSeries.length,
+        name: nome,
+        episodios: parseInt(episodios) || 0
+      }];
+      localStorage.setItem('series', JSON.stringify(newSeries));
+      return newSeries;
+    });
   };
 
   const handleAdicionar = (id) => {
-    setSeries(series.map(serie => {
-      if (serie.id === id) {
-        return { ...serie, episodios: serie.episodios + 1 };
-      }
-      return serie;
-    }));
+    setSeries(prevSeries => {
+      const updatedSeries = prevSeries.map(serie => {
+        if (serie.id === id) {
+          return { ...serie, episodios: serie.episodios + 1 };
+        }
+        return serie;
+      });
+      localStorage.setItem('series', JSON.stringify(updatedSeries));
+      return updatedSeries;
+    });
   };
 
   const handleRemover = (id) => {
-    setSeries(series.map(serie => {
-      if (serie.id === id && serie.episodios > 0) {
-        return { ...serie, episodios: serie.episodios - 1 };
-      }
-      return serie;
-    }));
+    setSeries(prevSeries => {
+      const updatedSeries = prevSeries.map(serie => {
+        if (serie.id === id && serie.episodios > 0) {
+          return { ...serie, episodios: serie.episodios - 1 };
+        }
+        return serie;
+      });
+      localStorage.setItem('series', JSON.stringify(updatedSeries));
+      return updatedSeries;
+    });
   };
 
   return (
