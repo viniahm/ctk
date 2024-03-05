@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import { Input, Button, Card, Modal } from 'antd';
 import dinoImage from './dino.png';
 
+
+useEffect(() => {
+    const savedSeries = localStorage.getItem('series');
+    if (savedSeries) {
+      setSeries(JSON.parse(savedSeries));
+    }
+  }, []);
+
+
 function App() {
   const [series, setSeries] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
